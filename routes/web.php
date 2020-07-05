@@ -16,7 +16,7 @@ Route::get('/pages/homepage', function () {
 });
 
 Route::get('/pages/about', function(){
-    return view('pages/about', compact('halaman'));
+    return view('pages/about');
 });
 
 Route::get('/siswa', function(){
