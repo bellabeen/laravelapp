@@ -7,11 +7,11 @@ use Illuminate\Http\Request;
 class PagesController extends Controller
 {
     public function homepage(){
-        return view('pages.homepage', compact('homepage'));
+        return view('pages.homepage')->with('homepage');
     }
 
     public function about(){
-        return view('pages.about', compact('about'));
+        return view('pages.about')->with('about');
     }
-    
+
 }
