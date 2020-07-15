@@ -3,6 +3,7 @@
 @section('main')
     <div id="siswa">
         <h2>Tambah Siswa</h2>
+
         {!! Form::open(['url' => 'siswa']) !!}
             @include('siswa.form', ['submitButtonText' => 'Tambah Data'])
         {!! Form::close() !!}

@@ -18,8 +18,9 @@
                 <?php foreach($siswa_list as $siswa): ?>
                     <tr>
                         <td>{{ $siswa->nisn }}</td>
-                        <td>{{ $siswa->nama_siswa }}</td>
-                        <td>{{ $siswa->tanggal_lahir }}</td>
+                        <td>{{ ucwords($siswa->nama_siswa) }}</td>
+
+                        <td>{{ date("d-m-Y", strtotime($siswa->tanggal_lahir)) }}</td>
                         <td>{{ $siswa->jenis_kelamin }}</td>
                         <td>
                             <div class="box-button">
@@ -29,7 +30,6 @@
                                 {{ link_to('siswa/' .$siswa->id . '/edit', 'Edit', ['class' => 'btn btn-warning btn-sm']) }}
                             </div>
                             <div class="box-button">
-                            {{-- {!! Form::submit('Delete', ['class' => 'btn btn-danger btn-sm'], ['method' => 'DELETE', 'action' => ['SiswaController@destroy', $siswa->id]]) !!} --}}
                                 {!! Form::open(['method' => 'DELETE', 'action' => ['SiswaController@destroy', $siswa->id]]) !!}
                                 {!! Form::submit('Delete', ['class' => 'btn btn-danger btn-sm']) !!}
                                 {!! Form::close() !!}

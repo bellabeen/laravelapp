@@ -17,13 +17,21 @@ Route::get('/', 'PagesController@homepage');
 
 Route::get('about', 'PagesController@about');
 
-Route::get('siswa', 'SiswaController@index');
-Route::get('siswa/create', 'SiswaController@create');
-Route::get('siswa/{siswa}', 'SiswaController@show');
-Route::post('siswa', 'SiswaController@store');
-Route::get('siswa/{siswa}/edit', 'SiswaController@edit');
-Route::patch('siswa/{siswa}', 'SiswaController@update');
-Route::delete('siswa/{siswa}', 'SiswaController@destroy');
+Route::group(['middleware' => ['web']], function(){
+    Route::get('siswa', 'SiswaController@index');
+    Route::get('siswa/create', 'SiswaController@create');
+    Route::get('siswa/{siswa}', 'SiswaController@show');
+    Route::post('siswa', 'SiswaController@store');
+    Route::get('siswa/{siswa}/edit', 'SiswaController@edit');
+    Route::patch('siswa/{siswa}', 'SiswaController@update');
+    Route::delete('siswa/{siswa}', 'SiswaController@destroy');
+});
+
+
+
+Route::get('date-mutator', 'SiswaController@dateMutator');
+
+Route::get('test-collection', 'SiswaController@tescollection');
 
 
 Route::get('sampledata', function(){
