@@ -20,6 +20,10 @@
         <td>Jenis Kelamin</td>
         <td>{{ $siswa->jenis_kelamin }}</td>
     </tr>
+    <tr>
+        <td>Telepon</td>
+        <td>{{ !empty($siswa->telepon->nomor_telepon) ? $siswa->telepon->nomor_telepon : '-' }}
+    </tr>
 </table>
 </div>
 @endsection

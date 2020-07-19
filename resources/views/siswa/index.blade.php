@@ -11,7 +11,9 @@
                     <th>Nama</th>
                     <th>Tanggal Lahir</th>
                     <th>Jenis Kelamin</th>
+                    <th>Telepon</th>
                     <th>Action</th>
+                    
                 </tr>
             </thead>
             <tbody>
@@ -22,6 +24,9 @@
 
                         <td>{{ date("d-m-Y", strtotime($siswa->tanggal_lahir)) }}</td>
                         <td>{{ $siswa->jenis_kelamin }}</td>
+                        
+                        <td>{{ !empty($siswa->telepon->nomor_telepon) ? 
+                            $siswa->telepon->nomor_telepon : '-' }}</td>
                         <td>
                             <div class="box-button">
                                 {{ link_to('siswa/' .$siswa->id, 'Detail', ['class' => 'btn btn-success btn-sm']) }}

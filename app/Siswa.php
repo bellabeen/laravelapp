@@ -36,12 +36,12 @@ class Siswa extends Model
         $this->attributes['tanggal_lahir'] = (new Carbon($tanggal_lahir))->format('Y-m-d');
     }
 
-    // public function getTanggalLahirAttributes($tanggal_lahir){
-    //     $this->attributes['tanggal_lahir'] = (new Carbon($tanggal_lahir))->format('d-m-Y');
-    // }
-
     public function getFromDateAttribute($tanggal_lahir) {
         return Carbon::parse($tanggal_lahir)->format('d-m-Y');
+    }
+
+    public function telepon() {
+        return $this->hasOne('App\Telepon', 'id_siswa');
     }
 
 }
