@@ -15,6 +15,18 @@
 </div>
 
 @if($errors->any())
+    <div class="form-group {{ $errors->has('nisn') ? 'has-error' : 'has-success' }} ">
+@else
+    <div class="form-group">
+@endif
+{!! Form::label('nisn', 'NISN : ', ['class' => 'control-label']) !!}
+    {!! Form::text('nisn', null, ['class' => 'form-control']) !!}
+        @if ($errors->has('nisn'))
+            <span class="help-block">{{ $errors->first('nisn') }}</span>
+        @endif
+</div>
+
+@if($errors->any())
     <div class="form-group {{ $errors->has('nama_siswa') ? 'has-error' : 'has-success' }} ">
 @else
     <div class="form-group">
@@ -219,17 +231,17 @@
         @endif
 </div>
 
-<!-- @if($errors->any())
-    <div class="form-group {{ $errors->has('nomor_telepon') ? 'has-error' : 'has-success' }} ">
+@if($errors->any())
+    <div class="form-group {{ $errors->has('semester_1') ? 'has-error' : 'has-success' }} ">
 @else
     <div class="form-group">
 @endif
-{!! Form::label('nomor_telepon', 'Telepon : ', ['class' => 'control-label']) !!}
-    {!! Form::text('nomor_telepon', null, ['class' => 'form-control']) !!}
-        @if ($errors->has('nomor_telepon'))
-            <span class="help-block">{{ $errors->first('nomor_telepon') }}</span>
+{!! Form::label('semester_1', 'Rata - Rata Semester 1 : ', ['class' => 'control-label']) !!}
+    {!! Form::text('semester_1', null, ['class' => 'form-control']) !!}
+        @if ($errors->has('semester_1'))
+            <span class="help-block">{{ $errors->first('semester_1') }}</span>
         @endif
-</div> -->
+</div>
 
 <div class="form-group">
     {!! Form::submit($submitButtonText, ['class' => 'btn btn-primary form-control']) !!}

@@ -13,16 +13,13 @@ use Illuminate\Support\Facades\Validator;
 
 class SiswaController extends Controller
 {
-    public function index(){
-        $siswa_list = Siswa::get();
-        // $nilai = Nilai::get();
-        // $siswa_list = DB::table('siswa')
-        //                    ->orderBy('nama_siswa', 'asc')
-        //                     ->paginate(5);;
+    public function index(){    
+        $siswa_list = DB::table('siswa')
+                           ->orderBy('nama_siswa', 'asc')
+                            ->paginate(2);
         $siswa_list->tanggal_lahir = Carbon::now();
 
-
-        // // menghitung jumlah siswa
+        // menghitung jumlah siswa
         $jumlah_siswa = Siswa::count();
         return view('siswa.index', ['siswa_list' => $siswa_list], ['jumlah_siswa' => $jumlah_siswa]);
     }
@@ -61,7 +58,6 @@ class SiswaController extends Controller
             'nama_siswa' => 'required|string|max:100',
             'jenis_kelamin' => 'required|in:L,P',
             'tempat_lahir' => 'required|string|max:50',
-            
             'tanggal_lahir' => 'required|date',
             'alamat' => 'required|string|max:100',
             'kelurahan' => 'required|string|max:50',

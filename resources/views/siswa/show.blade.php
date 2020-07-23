@@ -4,10 +4,17 @@
 <div id="siswa">
 <h2>Detail Siswa</h2>
 <table class="table table-striped">
+
     <tr>
         <td>Kode Pendaftaran</td>
         <td>{{ $siswa->kode_pendaftaran }}</td>
     </tr>
+
+    <tr>
+        <td>NISN</td>
+        <td>{{ !empty($siswa->nilai->nisn) ? $siswa->nilai->nisn : '-' }}</td>
+    </tr>
+    
     <tr>
         <td>Nama</td>
         <td>{{ $siswa->nama_siswa }}</td>

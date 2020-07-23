@@ -20,9 +20,8 @@
                 <?php foreach($siswa_list as $siswa): ?>
                     <tr>
                         <?php
-                        var_dump($siswa);
+                            var_dump($siswa);
                         ?>
-                        
                         <td>{{ $siswa->kode_pendaftaran }}</td>
                         <td>{{ !empty($siswa->nilai->nisn) ? $siswa->nilai->nisn : '-' }}</td>
                         <td>{{ ucwords($siswa->nama_siswa) }}</td>
@@ -60,9 +59,9 @@
             <div class="pull-left">
                 <strong>Jumlah Siswa : {{ $jumlah_siswa }}</strong>
             </div>
-            {{-- <div class="paging">
+            <div class="paging">
                {{ $siswa_list->links() }}
-            </div> --}}
+            </div>
         </div>
 
         <div class="bottom-nav">
