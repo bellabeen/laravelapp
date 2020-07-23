@@ -40,39 +40,44 @@ class SiswaController extends Controller
         // menyimpan semua data berdasaran variable yang terdapat di form input ke database
         // Siswa::create($request->all());
         // return redirect('siswa');
-        if($request->hasFile('foto')) {
-            $foto = $request->file('foto');
-            $ext = $foto->getClientOriginalExtension();
 
-            if($request->file('foto')->isValid()){
-                $foto_name = date('Ymd'). ".$ext";
-                $upload_path = 'fotoupload';
-                $request->file('foto')->move($upload_path, $foto_name);
-                $input['foto'] = $foto_name;
-            }
-        }
+        // if($request->hasFile('foto')) {
+        //     $foto = $request->file('foto');
+        //     $ext = $foto->getClientOriginalExtension();
+
+        //     if($request->file('foto')->isValid()){
+        //         $foto_name = date('Ymd'). ".$ext";
+        //         $upload_path = 'fotoupload';
+        //         $request->file('foto')->move($upload_path, $foto_name);
+        //         $input['foto'] = $foto_name;
+        //     }
+        // }
 
         $input = $request->all();
         $validator = Validator::make($input,[
-            'kode_pendaftarann' => 'required|string|size:100|unique:siswa,kode_pendaftaran',
-            'nama_siswa' => 'required|string|max:100',
-            'jenis_kelamin' => 'required|in:L,P',
+            'kode_pendaftaran' => 'unique:siswa,kode_pendaftaran',
+            'nama_siswa' => 'string|required|max:100',
+            'jenis_kelamin' => 'string|required|in:L,P',
             'tempat_lahir' => 'required|string|max:50',
             'tanggal_lahir' => 'required|date',
-            'alamat' => 'required|string|max:100',
-            'kelurahan' => 'required|string|max:50',
-            'kecamatan' => 'required|string|max:50',
+            'alamat' => 'string|max:100',
+            'kelurahan' => 'string|max:50',
+            'kecamatan' => 'string|max:50',
             'kota' => 'required|string|max:50',
             'provinsi' => 'required|string|max:50',
             'nama_ortu' => 'required|string|max:50',
-            'nomor_ortu' => 'string|max:15',
-            'nomor_nik' => 'required|string|max:25',
-            'nomor_kk' => 'required|string|max:25',
-            'status' => 'required|in:0,1',
-            'foto' => 'string|max:255',
-            
-            
+            'nomor_ortu' => 'max:15',
+            'nomor_nik' => 'required|unique:siswa,nomor_nik|max:25',
+            'nomor_kk' => 'required|max:25',
+            'status' => 'string|in:0,1',
+            'nisn' => 'unique:nilai,nisn',
+            'semester_1' => 'required|max:10',
+            'semester_2' => 'required|max:10',
+            'semester_3' => 'required|max:10',
+            'semester_4' => 'required|max:10',
+            'semester_5' => 'required|max:10',
 
+            // 'foto' => 'string|max:255',
             
             // 'nomor_telepon' => 'sometimes|numeric|digits_between:10,15|unique:telepon,nomor_telepon',
         ]);
@@ -85,9 +90,15 @@ class SiswaController extends Controller
 
         $siswa = Siswa::create($input);
 
-        // $telepon = new Telepon;
-        // $telepon->nomor_telepon = $request->input('nomor_telepon');
-        $siswa->save($input);
+        $nilai = new Nilai;
+        $nilai->nisn = $request->input('nisn');
+        $nilai->semester_1 = $request->input('semester_1');
+        $nilai->semester_2 = $request->input('semester_2');
+        $nilai->semester_3 = $request->input('semester_3');
+        $nilai->semester_4 = $request->input('semester_4');
+        $nilai->semester_5 = $request->input('semester_5');
+
+        $siswa->nilai()->save($nilai);
 
         return redirect('siswa');
     }

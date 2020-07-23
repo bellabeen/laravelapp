@@ -219,7 +219,7 @@
         @endif
 </div>
 
-@if($errors->any())
+<!-- @if($errors->any())
     <div class="form-group {{ $errors->has('foto') ? 'has-error' : 'has-success' }} ">
 @else
     <div class="form-group">
@@ -229,6 +229,42 @@
         @if ($errors->has('foto'))
             <span class="help-block">{{ $errors->first('foto') }}</span>
         @endif
+</div> -->
+
+@if($errors->any())
+    <div class="form-group {{ $errors->has('semester_1') ? 'has-error' : 'has-success' }} ">
+@else
+    <div class="form-group">
+@endif
+{!! Form::label('semester_1', 'Rata - Rata Nilai Semester 1 : ', ['class' => 'control-label']) !!}
+    {!! Form::text('semester_1', null, ['class' => 'form-control']) !!}
+        @if ($errors->has('semester_1'))
+            <span class="help-block">{{ $errors->first('semester_1') }}</span>
+        @endif
+</div>
+
+@if($errors->any())
+    <div class="form-group {{ $errors->has('semester_2') ? 'has-error' : 'has-success' }} ">
+@else
+    <div class="form-group">
+@endif
+{!! Form::label('semester_2', 'Rata - Rata Nilai Semester 2 : ', ['class' => 'control-label']) !!}
+    {!! Form::text('semester_2', null, ['class' => 'form-control']) !!}
+        @if ($errors->has('semester_2'))
+            <span class="help-block">{{ $errors->first('semester_2') }}</span>
+        @endif
+</div>
+
+@if($errors->any())
+    <div class="form-group {{ $errors->has('semester_3') ? 'has-error' : 'has-success' }} ">
+@else
+    <div class="form-group">
+@endif
+{!! Form::label('semester_3', 'Rata - Rata Nilai Semester 3 : ', ['class' => 'control-label']) !!}
+    {!! Form::text('semester_3', null, ['class' => 'form-control']) !!}
+        @if ($errors->has('semester_3'))
+            <span class="help-block">{{ $errors->first('semester_3') }}</span>
+        @endif
 </div>
 
 @if($errors->any())
@@ -236,10 +272,22 @@
 @else
     <div class="form-group">
 @endif
-{!! Form::label('semester_1', 'Rata - Rata Semester 1 : ', ['class' => 'control-label']) !!}
-    {!! Form::text('semester_1', null, ['class' => 'form-control']) !!}
-        @if ($errors->has('semester_1'))
-            <span class="help-block">{{ $errors->first('semester_1') }}</span>
+{!! Form::label('semester_4', 'Rata - Rata Nilai Semester 4 : ', ['class' => 'control-label']) !!}
+    {!! Form::text('semester_4', null, ['class' => 'form-control']) !!}
+        @if ($errors->has('semester_4'))
+            <span class="help-block">{{ $errors->first('semester_4') }}</span>
+        @endif
+</div>
+
+@if($errors->any())
+    <div class="form-group {{ $errors->has('semester_5') ? 'has-error' : 'has-success' }} ">
+@else
+    <div class="form-group">
+@endif
+{!! Form::label('semester_5', 'Rata - Rata Nilai Semester 5 : ', ['class' => 'control-label']) !!}
+    {!! Form::text('semester_5', null, ['class' => 'form-control']) !!}
+        @if ($errors->has('semester_5'))
+            <span class="help-block">{{ $errors->first('semester_5') }}</span>
         @endif
 </div>
 

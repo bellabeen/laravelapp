@@ -130,28 +130,115 @@ return [
     */
 
     'custom' => [
-        'nisn' => [
-            'required' => 'Kolom NISN harus diisi',
-            'string' => 'Kolom NISN harus berupa string',
-            'size' => 'Kolom NISN harus :size angka',
-            'unique' => 'NISN sudah terpakai.',
+        'kode_pendaftaran' => [
+            // 'required' => 'Kolom Kode Pendaftaran harus diisi',
+            'string' => 'Kolom Kode Pendaftaran harus berupa string',
+            'unique' => 'Kode Pendaftaran sudah terpakai.',
         ],
 
         'nama_siswa' => [
-            'required' => 'Kolom Nama Siswa harus diisi',
+            // 'required' => 'Kolom Nama Siswa harus diisi',
             'string' => 'Kolom Nama Siswa harus berupa string',
             'max' => 'Kolom Nama Siswa tidak boleh lebih dari :max karakter',
         ],
 
         'jenis_kelamin' => [
-            'required' => 'Kolom Jenis Kelamin harus diisi',
+            // 'required' => 'Kolom Jenis Kelamin harus diisi',
             'in' => 'Kolom Jenis Kelamin harus diisi L atau P',
         ],
 
-        'tanggal_lahir' => [
-            'required' => 'Kolom tanggal lahir harus diisi',
-            'date' => 'Kolom Tanggal Lahir harus diisi format tanggal yang benar',
+        'tempat_lahir' => [
+            // 'required' => 'Kolom Tempat Lahir harus diisi',
+            'string' => 'Kolom Tempat Lahir harus berupa string',
+            'max' => 'Kolom Tempat Lahir tidak boleh lebih dari :max karakter',
         ],
+
+        'alamat' => [
+            // 'required' => 'Kolom Alamat harus diisi',
+            'string' => 'Kolom Alamat harus berupa string',
+            'max' => 'Kolom Nama Siswa tidak boleh lebih dari :max karakter',
+        ],
+
+        'kelurahan' => [
+            // 'required' => 'Kolom Kelurahan harus diisi',
+            'string' => 'Kolom Kelurahan harus berupa string',
+            'max' => 'Kolom Kelurahan tidak boleh lebih dari :max karakter',
+        ],
+
+        'kecamatan' => [
+            // 'required' => 'Kolom Kecamatan harus diisi',
+            'string' => 'Kolom Kecamatan harus berupa string',
+            'max' => 'Kolom Kecamatan tidak boleh lebih dari :max karakter',
+        ],
+
+        'kota' => [
+            // 'required' => 'Kolom Kota harus diisi',
+            'string' => 'Kolom Nama Siswa harus berupa string',
+            'max' => 'Kolom Nama Siswa tidak boleh lebih dari :max karakter',
+        ],
+
+        'provinsi' => [
+            // 'required' => 'Kolom Provinsi harus diisi',
+            'string' => 'Kolom Provinsi harus berupa string',
+            'max' => 'Kolom Provinsi tidak boleh lebih dari :max karakter',
+        ],
+
+        'nama_ortu' => [
+            // 'required' => 'Kolom Nama Orang Tua harus diisi',
+            'string' => 'Kolom Nama Orang Tua harus berupa string',
+            'max' => 'Kolom Nama Orang Tua tidak boleh lebih dari :max karakter',
+        ],
+
+        'nomor_nik' => [
+            // 'required' => 'Kolom NIK harus diisi',
+            'string' => 'Kolom NIK harus berupa string',
+            // 'size' => 'Kolom NIK harus :size angka',
+            'unique' => 'NIK sudah terpakai.',
+        ],
+
+        'nomor_kk' => [
+            // 'required' => 'Kolom Nomor KK harus diisi',
+            'string' => 'Kolom Nomor KK harus berupa string',
+            'size' => 'Kolom Nomor KK harus :size angka',
+            'unique' => 'Nomor KK sudah terpakai.',
+        ],
+
+        'status' => [
+            // 'required' => 'Kolom Status harus diisi',
+            'in' => 'Kolom Status harus diisi L atau P',
+        ],
+
+        'nisn' => [
+            // 'required' => 'Kolom Kode Pendaftaran harus diisi',
+            // 'string' => 'Kolom NISN harus berupa string',
+            'unique' => 'Kode Pendaftaran sudah terpakai.',
+        ],
+
+        'semester_1' => [
+            'string' => 'Kolom Semster 1 harus berupa string',
+            'unique' => 'NIK sudah terpakai.',
+        ],
+
+        'semester_2' => [
+            'string' => 'Kolom Semster 2 harus berupa string',
+            'unique' => 'NIK sudah terpakai.',
+        ],
+
+        'semester_3' => [
+            'string' => 'Kolom Semster 3 harus berupa string',
+            'unique' => 'NIK sudah terpakai.',
+        ],
+
+        'semester_4' => [
+            'string' => 'Kolom Semster 4 harus berupa string',
+            'unique' => 'NIK sudah terpakai.',
+        ],
+        'semester_5' => [
+            'string' => 'Kolom Semster 5 harus berupa string',
+            'unique' => 'NIK sudah terpakai.',
+        ],
+
+
     ],
 
     /*
