@@ -4,20 +4,25 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Siswa;
+use App\Nilai;
 use App\Telepon;
 use Carbon\Carbon;
+use store;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
 class SiswaController extends Controller
 {
     public function index(){
-        $siswa_list = DB::table('siswa')
-                           ->orderBy('nama_siswa', 'asc')
-                            ->paginate(5);;
+        $siswa_list = Siswa::get();
+        // $nilai = Nilai::get();
+        // $siswa_list = DB::table('siswa')
+        //                    ->orderBy('nama_siswa', 'asc')
+        //                     ->paginate(5);;
         $siswa_list->tanggal_lahir = Carbon::now();
 
-        // menghitung jumlah siswa
+
+        // // menghitung jumlah siswa
         $jumlah_siswa = Siswa::count();
         return view('siswa.index', ['siswa_list' => $siswa_list], ['jumlah_siswa' => $jumlah_siswa]);
     }
@@ -38,14 +43,42 @@ class SiswaController extends Controller
         // menyimpan semua data berdasaran variable yang terdapat di form input ke database
         // Siswa::create($request->all());
         // return redirect('siswa');
+        if($request->hasFile('foto')) {
+            $foto = $request->file('foto');
+            $ext = $foto->getClientOriginalExtension();
+
+            if($request->file('foto')->isValid()){
+                $foto_name = date('Ymd'). ".$ext";
+                $upload_path = 'fotoupload';
+                $request->file('foto')->move($upload_path, $foto_name);
+                $input['foto'] = $foto_name;
+            }
+        }
 
         $input = $request->all();
         $validator = Validator::make($input,[
-            'nisn' => 'required|string|size:4|unique:siswa,nisn',
-            'nama_siswa' => 'required|string|max:30',
-            'tanggal_lahir' => 'required|date',
+            'kode_pendaftarann' => 'required|string|size:100|unique:siswa,kode_pendaftaran',
+            'nama_siswa' => 'required|string|max:100',
             'jenis_kelamin' => 'required|in:L,P',
-            'nomor_telepon' => 'sometimes|numeric|digits_between:10,15|unique:telepon,nomor_telepon',
+            'tempat_lahir' => 'required|string|max:50',
+            
+            'tanggal_lahir' => 'required|date',
+            'alamat' => 'required|string|max:100',
+            'kelurahan' => 'required|string|max:50',
+            'kecamatan' => 'required|string|max:50',
+            'kota' => 'required|string|max:50',
+            'provinsi' => 'required|string|max:50',
+            'nama_ortu' => 'required|string|max:50',
+            'nomor_ortu' => 'string|max:15',
+            'nomor_nik' => 'required|string|max:25',
+            'nomor_kk' => 'required|string|max:25',
+            'status' => 'required|in:0,1',
+            'foto' => 'string|max:255',
+            
+            
+
+            
+            // 'nomor_telepon' => 'sometimes|numeric|digits_between:10,15|unique:telepon,nomor_telepon',
         ]);
 
         if($validator->fails()) {
@@ -56,9 +89,9 @@ class SiswaController extends Controller
 
         $siswa = Siswa::create($input);
 
-        $telepon = new Telepon;
-        $telepon->nomor_telepon = $request->input('nomor_telepon');
-        $siswa->telepon()->save($telepon);
+        // $telepon = new Telepon;
+        // $telepon->nomor_telepon = $request->input('nomor_telepon');
+        $siswa->save($input);
 
         return redirect('siswa');
     }

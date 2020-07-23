@@ -7,11 +7,11 @@
         <table class="table">
             <thead>
                 <tr>
+                    <th>Kode Pendaftaran</th>
                     <th>NISN</th>
                     <th>Nama</th>
-                    <th>Tanggal Lahir</th>
                     <th>Jenis Kelamin</th>
-                    <th>Telepon</th>
+                    <th>Status</th>
                     <th>Action</th>
                     
                 </tr>
@@ -19,14 +19,21 @@
             <tbody>
                 <?php foreach($siswa_list as $siswa): ?>
                     <tr>
-                        <td>{{ $siswa->nisn }}</td>
-                        <td>{{ ucwords($siswa->nama_siswa) }}</td>
-
-                        <td>{{ date("d-m-Y", strtotime($siswa->tanggal_lahir)) }}</td>
-                        <td>{{ $siswa->jenis_kelamin }}</td>
+                        <?php
+                        var_dump($siswa);
+                        ?>
                         
-                        <td>{{ !empty($siswa->telepon->nomor_telepon) ? 
-                            $siswa->telepon->nomor_telepon : '-' }}</td>
+                        <td>{{ $siswa->kode_pendaftaran }}</td>
+                        <td>{{ !empty($siswa->nilai->nisn) ? $siswa->nilai->nisn : '-' }}</td>
+                        <td>{{ ucwords($siswa->nama_siswa) }}</td>
+                        <td>{{ $siswa->jenis_kelamin == 'P' ? 'Perempuan' : 'Laki - Laki'  }}</td>
+                        <!-- <td>{{ date("d-m-Y", strtotime($siswa->tanggal_lahir)) }}</td> -->
+                        <td>{{ $siswa->status == '0' ? 'Menunggu Verifikasi' : 'Terverifikasi'  }}</td>
+                        
+                        
+                        <!-- <td>{{ !empty($siswa->telepon->nomor_telepon) ? 
+                            $siswa->telepon->nomor_telepon : '-' }}
+                        </td> -->
                         <td>
                             <div class="box-button">
                                 {{ link_to('siswa/' .$siswa->id, 'Detail', ['class' => 'btn btn-success btn-sm']) }}
@@ -53,9 +60,9 @@
             <div class="pull-left">
                 <strong>Jumlah Siswa : {{ $jumlah_siswa }}</strong>
             </div>
-            <div class="paging">
+            {{-- <div class="paging">
                {{ $siswa_list->links() }}
-            </div>
+            </div> --}}
         </div>
 
         <div class="bottom-nav">

@@ -10,10 +10,22 @@ class Siswa extends Model
     protected $table = 'siswa';
 
     protected $fillable = [
-        'nisn',
+        'kode_pendaftaran',
         'nama_siswa',
+        'jenis_kelamin',
+        'tempat_lahir',
         'tanggal_lahir',
-        'jenis_kelamin'
+        'alamat',
+        'kelurahan',
+        'kecamatan',
+        'kota',
+        'provinsi',
+        'nama_ortu',
+        'nomor_ortu',
+        'nomor_nik',
+        'nomor_kk',
+        'status',
+        'foto',
     ];
 
     // Date MUtator function
@@ -40,8 +52,11 @@ class Siswa extends Model
         return Carbon::parse($tanggal_lahir)->format('d-m-Y');
     }
 
-    public function telepon() {
-        return $this->hasOne('App\Telepon', 'id_siswa');
-    }
+    // public function telepon() {
+    //     return $this->hasOne('App\Telepon', 'id_siswa');
+    // }
 
+    public function nilai(){
+        return $this->hasOne('App\Nilai', 'id_siswa');
+    }
 }
