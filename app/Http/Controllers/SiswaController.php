@@ -7,6 +7,7 @@ use App\Siswa;
 use App\Nilai;
 use App\Telepon;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\App;
 use store;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
@@ -14,9 +15,14 @@ use Illuminate\Support\Facades\Validator;
 class SiswaController extends Controller
 {
     public function index(){    
-        $siswa_list = DB::table('siswa')
-                           ->orderBy('nama_siswa', 'asc')
-                            ->paginate(2);
+        // $siswa_list = DB::table('siswa')
+        //                    ->orderBy('nama_siswa', 'asc')
+        //                     ->paginate(2);
+
+        //FIX DATA
+        // $siswa_list = Siswa::paginate(2);
+
+        $siswa_list = Siswa::orderBy('nama_siswa', 'asc')->paginate(2);
         $siswa_list->tanggal_lahir = Carbon::now();
 
         // menghitung jumlah siswa
@@ -106,7 +112,13 @@ class SiswaController extends Controller
     public function edit($id){
         // mengedit data berdasarkan id = $id
         $siswa = Siswa::findOrFail($id);
-        $siswa->nomor_telepon = $siswa->telepon->nomor_telepon;
+        $siswa->nisn = $siswa->nilai->nisn;
+        $siswa->semester_1 = $siswa->nilai->semester_1;
+        $siswa->semester_2 = $siswa->nilai->semester_2;
+        $siswa->semester_3 = $siswa->nilai->semester_3;
+        $siswa->semester_4 = $siswa->nilai->semester_4;
+        $siswa->semester_5 = $siswa->nilai->semester_5;
+        
         return view('siswa.edit', ['siswa' => $siswa]);
     }
 
@@ -116,12 +128,27 @@ class SiswaController extends Controller
         $input = $request->all();
 
         $validator = Validator::make($input, [
-            'nisn' => 'required|string|size:4|unique:siswa,nisn,' . $request->input('id'),
-            'nama_siswa' => 'required|string|max:30',
+            'kode_pendaftaran' => 'sometimes|numeric|digits_between:5,15',
+            'nama_siswa' => 'string|required|max:100',
+            'jenis_kelamin' => 'string|required|in:L,P',
+            'tempat_lahir' => 'required|string|max:50',
             'tanggal_lahir' => 'required|date',
-            'jenis_kelamin' => 'required|in:L,P',
-            'nomor_telepon' => 'sometimes|numeric|digits_between:10,15|unique:telepon,
-                                nomor_telepon,' . $request->input('id') . ',id_siswa',
+            'alamat' => 'string|max:100',
+            'kelurahan' => 'string|max:50',
+            'kecamatan' => 'string|max:50',
+            'kota' => 'required|string|max:50',
+            'provinsi' => 'required|string|max:50',
+            'nama_ortu' => 'required|string|max:50',
+            'nomor_ortu' => 'max:15',
+            'nomor_nik' => 'string',
+            'nomor_kk' => 'required|max:25',
+            'status' => 'string|in:0,1',
+            'nisn' => 'sometimes|numeric|digits_between:5,15|unique:nilai,nisn,' . $request->input('id') . ',id_siswa',
+            'semester_1' => 'required|max:10,' . $request->input('id') . ',id_siswa',
+            'semester_2' => 'required|max:10,' . $request->input('id') . ',id_siswa',
+            'semester_3' => 'required|max:10,' . $request->input('id') . ',id_siswa',
+            'semester_4' => 'required|max:10,' . $request->input('id') . ',id_siswa',
+            'semester_5' => 'required|max:10,' . $request->input('id') . ',id_siswa',
         ]);
 
         if($validator->fails()) {
@@ -131,9 +158,18 @@ class SiswaController extends Controller
 
         $siswa->update($request->all());
 
-        $telepon = $siswa->telepon;
-        $telepon->nomor_telepon = $request->input('nomor_telepon');
-        $siswa->telepon()->save($telepon);
+        $nilai = $siswa->nilai;
+        $nilai->nisn = $request->input('nisn');
+        $nilai->semester_1 = $request->input('semester_1');
+        $nilai->semester_2 = $request->input('semester_2');
+        $nilai->semester_3 = $request->input('semester_3');
+        $nilai->Semester_4 = $request->input('semester_4');
+        $nilai->semester_5 = $request->input('semester_5');
+        $siswa->nilai()->save($nilai);
+
+        // $telepon = $siswa->telepon;
+        // $telepon->nomor_telepon = $request->input('nomor_telepon');
+        // $siswa->telepon()->save($telepon);
         return redirect('siswa');
 
     }

@@ -4,7 +4,8 @@
 <div id="siswa">
 <h2>Siswa</h2>
     @if (!empty($siswa_list))
-        <table class="table">
+    <div class="table-responsive">
+        <table class="table table-hover">
             <thead>
                 <tr>
                     <th>Kode Pendaftaran</th>
@@ -19,9 +20,7 @@
             <tbody>
                 <?php foreach($siswa_list as $siswa): ?>
                     <tr>
-                        <?php
-                            var_dump($siswa);
-                        ?>
+
                         <td>{{ $siswa->kode_pendaftaran }}</td>
                         <td>{{ !empty($siswa->nilai->nisn) ? $siswa->nilai->nisn : '-' }}</td>
                         <td>{{ ucwords($siswa->nama_siswa) }}</td>
@@ -51,6 +50,7 @@
                     <?php endforeach ?>
             </tbody>
         </table>
+    </div>
         @else
         <p>Tidak ada data siswa</p>
         @endif

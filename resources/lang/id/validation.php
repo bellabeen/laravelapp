@@ -133,7 +133,7 @@ return [
         'kode_pendaftaran' => [
             // 'required' => 'Kolom Kode Pendaftaran harus diisi',
             'string' => 'Kolom Kode Pendaftaran harus berupa string',
-            'unique' => 'Kode Pendaftaran sudah terpakai.',
+            
         ],
 
         'nama_siswa' => [
@@ -209,33 +209,37 @@ return [
         ],
 
         'nisn' => [
-            // 'required' => 'Kolom Kode Pendaftaran harus diisi',
+            'required' => 'Kolom Kode Pendaftaran harus diisi',
             // 'string' => 'Kolom NISN harus berupa string',
-            'unique' => 'Kode Pendaftaran sudah terpakai.',
+            // 'unique' => 'Kode Pendaftaran sudah terpakai.',
         ],
 
         'semester_1' => [
             'string' => 'Kolom Semster 1 harus berupa string',
-            'unique' => 'NIK sudah terpakai.',
+            'max' => 'Kolom Semester 1 tidak boleh lebih dari :max karakter',
+            
         ],
 
         'semester_2' => [
             'string' => 'Kolom Semster 2 harus berupa string',
-            'unique' => 'NIK sudah terpakai.',
+            'max' => 'Kolom Semester 2 tidak boleh lebih dari :max karakter',
         ],
 
         'semester_3' => [
             'string' => 'Kolom Semster 3 harus berupa string',
-            'unique' => 'NIK sudah terpakai.',
+            'max' => 'Kolom Semester 3 tidak boleh lebih dari :max karakter',
+            
         ],
 
         'semester_4' => [
             'string' => 'Kolom Semster 4 harus berupa string',
-            'unique' => 'NIK sudah terpakai.',
+            'max' => 'Kolom Semester 4 tidak boleh lebih dari :max karakter',
+            
         ],
         'semester_5' => [
             'string' => 'Kolom Semster 5 harus berupa string',
-            'unique' => 'NIK sudah terpakai.',
+            'max' => 'Kolom Semester 5 tidak boleh lebih dari :max karakter',
+         
         ],
 
 
