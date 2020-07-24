@@ -10,18 +10,12 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\App;
 use store;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Validator;
+// use Illuminate\Support\Facades\Validator;
 
 class SiswaController extends Controller
 {
     public function index(){    
-        // $siswa_list = DB::table('siswa')
-        //                    ->orderBy('nama_siswa', 'asc')
-        //                     ->paginate(2);
-
-        //FIX DATA
-        // $siswa_list = Siswa::paginate(2);
-
+        //show data
         $siswa_list = Siswa::orderBy('nama_siswa', 'asc')->paginate(2);
         $siswa_list->tanggal_lahir = Carbon::now();
 
@@ -60,7 +54,7 @@ class SiswaController extends Controller
         // }
 
         $input = $request->all();
-        $validator = Validator::make($input,[
+        $this->validate($request,[
             'kode_pendaftaran' => 'unique:siswa,kode_pendaftaran',
             'nama_siswa' => 'string|required|max:100',
             'jenis_kelamin' => 'string|required|in:L,P',
@@ -88,11 +82,11 @@ class SiswaController extends Controller
             // 'nomor_telepon' => 'sometimes|numeric|digits_between:10,15|unique:telepon,nomor_telepon',
         ]);
 
-        if($validator->fails()) {
-            return redirect('siswa/create')
-            ->withInput()
-            ->withErrors($validator);
-        }
+        // if($validator->fails()) {
+        //     return redirect('siswa/create')
+        //     ->withInput()
+        //     ->withErrors($validator);
+        // }
 
         $siswa = Siswa::create($input);
 
@@ -118,7 +112,7 @@ class SiswaController extends Controller
         $siswa->semester_3 = $siswa->nilai->semester_3;
         $siswa->semester_4 = $siswa->nilai->semester_4;
         $siswa->semester_5 = $siswa->nilai->semester_5;
-        
+
         return view('siswa.edit', ['siswa' => $siswa]);
     }
 
@@ -127,7 +121,7 @@ class SiswaController extends Controller
         $siswa = Siswa::findOrFail($id);
         $input = $request->all();
 
-        $validator = Validator::make($input, [
+        $this->validate($request, [
             'kode_pendaftaran' => 'sometimes|numeric|digits_between:5,15',
             'nama_siswa' => 'string|required|max:100',
             'jenis_kelamin' => 'string|required|in:L,P',
@@ -151,10 +145,10 @@ class SiswaController extends Controller
             'semester_5' => 'required|max:10,' . $request->input('id') . ',id_siswa',
         ]);
 
-        if($validator->fails()) {
-            return redirect('siswa/' . $id . '/edit')->withInput()
-            ->withErrors($validator);
-        }
+        // if($validator->fails()) {
+        //     return redirect('siswa/' . $id . '/edit')->withInput()
+        //     ->withErrors($validator);
+        // }
 
         $siswa->update($request->all());
 
