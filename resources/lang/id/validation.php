@@ -242,6 +242,12 @@ return [
          
         ],
 
+        'foto' => [
+            'image' => 'Kolom Foto hanya boleh berisi gambar.',
+            'max' => 'Kolom Foto tidak boleh lebih dari 500 KB',
+            'mimes' => 'Kolom Foto hanya boleh diisi file *.jpg, *.jpeg, *.png',
+        ],
+
 
     ],
 

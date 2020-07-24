@@ -42,6 +42,10 @@ return [
     */
 
     'disks' => [
+        'foto' => [
+            'driver' => 'local',
+            'root' => public_path('fotosiswa'),
+        ],
 
         'local' => [
             'driver' => 'local',

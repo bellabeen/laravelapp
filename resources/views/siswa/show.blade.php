@@ -75,6 +75,20 @@
         <td>Status</td>
         <td>{{ $siswa->status == '0' ? 'Menunggu Verifikasi' : 'Terverifikasi'  }}</td>
     </tr>
+    <tr>
+        <td>Foto</td>
+        <td>
+            @if (isset($siswa->foto))
+                <img src="{{ asset('fotosiswa/' . $siswa->foto) }} ">
+            @else
+                @if ($siswa->jenis_kelamin == 'L')
+                <img src="{{ asset('fotosiswa/dummymale.jpg') }}">
+                @else
+                <img src="{{ asset('fotosiswa/dummyfemale.jpg') }}">
+                @endif
+            @endif
+        </td>
+    </tr>
     
 </table>
 </div>

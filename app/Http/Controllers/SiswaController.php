@@ -8,9 +8,10 @@ use App\Nilai;
 use App\Telepon;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\App;
-use store;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
 // use Illuminate\Support\Facades\Validator;
+use App\Http\Requests\SiswaRequest;
 
 class SiswaController extends Controller
 {
@@ -36,60 +37,31 @@ class SiswaController extends Controller
         return view('siswa.create');
     }
 
-    public function store(Request $request){
+    public function store(SiswaRequest $request){
         // menyimpan semua data berdasaran variable yang terdapat di form input ke database
         // Siswa::create($request->all());
         // return redirect('siswa');
 
-        // if($request->hasFile('foto')) {
-        //     $foto = $request->file('foto');
-        //     $ext = $foto->getClientOriginalExtension();
-
-        //     if($request->file('foto')->isValid()){
-        //         $foto_name = date('Ymd'). ".$ext";
-        //         $upload_path = 'fotoupload';
-        //         $request->file('foto')->move($upload_path, $foto_name);
-        //         $input['foto'] = $foto_name;
-        //     }
-        // }
-
         $input = $request->all();
-        $this->validate($request,[
-            'kode_pendaftaran' => 'unique:siswa,kode_pendaftaran',
-            'nama_siswa' => 'string|required|max:100',
-            'jenis_kelamin' => 'string|required|in:L,P',
-            'tempat_lahir' => 'required|string|max:50',
-            'tanggal_lahir' => 'required|date',
-            'alamat' => 'string|max:100',
-            'kelurahan' => 'string|max:50',
-            'kecamatan' => 'string|max:50',
-            'kota' => 'required|string|max:50',
-            'provinsi' => 'required|string|max:50',
-            'nama_ortu' => 'required|string|max:50',
-            'nomor_ortu' => 'max:15',
-            'nomor_nik' => 'required|unique:siswa,nomor_nik|max:25',
-            'nomor_kk' => 'required|max:25',
-            'status' => 'string|in:0,1',
-            'nisn' => 'unique:nilai,nisn',
-            'semester_1' => 'required|max:10',
-            'semester_2' => 'required|max:10',
-            'semester_3' => 'required|max:10',
-            'semester_4' => 'required|max:10',
-            'semester_5' => 'required|max:10',
+        if($request->hasFile('foto')) {
+            $foto = $request->file('foto');
+            $ext = $foto->getClientOriginalExtension();
 
-            // 'foto' => 'string|max:255',
-            
-            // 'nomor_telepon' => 'sometimes|numeric|digits_between:10,15|unique:telepon,nomor_telepon',
-        ]);
+            if($request->file('foto')->isValid()){
+                $foto_name = date('Ymd'). ".$ext";
+                $upload_path = 'fotosiswa';
+                $request->file('foto')->move($upload_path, $foto_name);
+                $input['foto'] = $foto_name;
+            }
+        }
+        
 
-        // if($validator->fails()) {
-        //     return redirect('siswa/create')
-        //     ->withInput()
-        //     ->withErrors($validator);
-        // }
 
+
+        //Simpan Data Siswa
         $siswa = Siswa::create($input);
 
+        //Simpan Data Nilai
         $nilai = new Nilai;
         $nilai->nisn = $request->input('nisn');
         $nilai->semester_1 = $request->input('semester_1');
@@ -97,10 +69,56 @@ class SiswaController extends Controller
         $nilai->semester_3 = $request->input('semester_3');
         $nilai->semester_4 = $request->input('semester_4');
         $nilai->semester_5 = $request->input('semester_5');
-
         $siswa->nilai()->save($nilai);
-
         return redirect('siswa');
+
+        // $this->validate($request,[
+        //     'kode_pendaftaran' => 'unique:siswa,kode_pendaftaran',
+        //     'nama_siswa' => 'string|required|max:100',
+        //     'jenis_kelamin' => 'string|required|in:L,P',
+        //     'tempat_lahir' => 'required|string|max:50',
+        //     'tanggal_lahir' => 'required|date',
+        //     'alamat' => 'string|max:100',
+        //     'kelurahan' => 'string|max:50',
+        //     'kecamatan' => 'string|max:50',
+        //     'kota' => 'required|string|max:50',
+        //     'provinsi' => 'required|string|max:50',
+        //     'nama_ortu' => 'required|string|max:50',
+        //     'nomor_ortu' => 'max:15',
+        //     'nomor_nik' => 'required|unique:siswa,nomor_nik|max:25',
+        //     'nomor_kk' => 'required|max:25',
+        //     'status' => 'string|in:0,1',
+        //     'nisn' => 'unique:nilai,nisn',
+        //     'semester_1' => 'required|max:10',
+        //     'semester_2' => 'required|max:10',
+        //     'semester_3' => 'required|max:10',
+        //     'semester_4' => 'required|max:10',
+        //     'semester_5' => 'required|max:10',
+
+        //     // 'foto' => 'string|max:255',
+            
+        //     // 'nomor_telepon' => 'sometimes|numeric|digits_between:10,15|unique:telepon,nomor_telepon',
+        // ]);
+
+        // // if($validator->fails()) {
+        // //     return redirect('siswa/create')
+        // //     ->withInput()
+        // //     ->withErrors($validator);
+        // // }
+
+        // $siswa = Siswa::create($input);
+
+        // $nilai = new Nilai;
+        // $nilai->nisn = $request->input('nisn');
+        // $nilai->semester_1 = $request->input('semester_1');
+        // $nilai->semester_2 = $request->input('semester_2');
+        // $nilai->semester_3 = $request->input('semester_3');
+        // $nilai->semester_4 = $request->input('semester_4');
+        // $nilai->semester_5 = $request->input('semester_5');
+
+        // $siswa->nilai()->save($nilai);
+
+        
     }
 
     public function edit($id){
@@ -116,50 +134,64 @@ class SiswaController extends Controller
         return view('siswa.edit', ['siswa' => $siswa]);
     }
 
-    public function update($id, Request $request){
+    public function update($id, SiswaRequest $request){
         // mengupdate semua data di form berdasarkan id = $id
         $siswa = Siswa::findOrFail($id);
         $input = $request->all();
 
-        $this->validate($request, [
-            'kode_pendaftaran' => 'sometimes|numeric|digits_between:5,15',
-            'nama_siswa' => 'string|required|max:100',
-            'jenis_kelamin' => 'string|required|in:L,P',
-            'tempat_lahir' => 'required|string|max:50',
-            'tanggal_lahir' => 'required|date',
-            'alamat' => 'string|max:100',
-            'kelurahan' => 'string|max:50',
-            'kecamatan' => 'string|max:50',
-            'kota' => 'required|string|max:50',
-            'provinsi' => 'required|string|max:50',
-            'nama_ortu' => 'required|string|max:50',
-            'nomor_ortu' => 'max:15',
-            'nomor_nik' => 'string',
-            'nomor_kk' => 'required|max:25',
-            'status' => 'string|in:0,1',
-            'nisn' => 'sometimes|numeric|digits_between:5,15|unique:nilai,nisn,' . $request->input('id') . ',id_siswa',
-            'semester_1' => 'required|max:10,' . $request->input('id') . ',id_siswa',
-            'semester_2' => 'required|max:10,' . $request->input('id') . ',id_siswa',
-            'semester_3' => 'required|max:10,' . $request->input('id') . ',id_siswa',
-            'semester_4' => 'required|max:10,' . $request->input('id') . ',id_siswa',
-            'semester_5' => 'required|max:10,' . $request->input('id') . ',id_siswa',
-        ]);
-
-        // if($validator->fails()) {
-        //     return redirect('siswa/' . $id . '/edit')->withInput()
-        //     ->withErrors($validator);
-        // }
-
+        // Update Data Siswa
         $siswa->update($request->all());
 
+        //Upate Nilai
         $nilai = $siswa->nilai;
         $nilai->nisn = $request->input('nisn');
         $nilai->semester_1 = $request->input('semester_1');
         $nilai->semester_2 = $request->input('semester_2');
         $nilai->semester_3 = $request->input('semester_3');
-        $nilai->Semester_4 = $request->input('semester_4');
+        $nilai->semester_4 = $request->input('semester_4');
         $nilai->semester_5 = $request->input('semester_5');
         $siswa->nilai()->save($nilai);
+
+
+        // $this->validate($request, [
+        //     'kode_pendaftaran' => 'sometimes|numeric|digits_between:5,15',
+        //     'nama_siswa' => 'string|required|max:100',
+        //     'jenis_kelamin' => 'string|required|in:L,P',
+        //     'tempat_lahir' => 'required|string|max:50',
+        //     'tanggal_lahir' => 'required|date',
+        //     'alamat' => 'string|max:100',
+        //     'kelurahan' => 'string|max:50',
+        //     'kecamatan' => 'string|max:50',
+        //     'kota' => 'required|string|max:50',
+        //     'provinsi' => 'required|string|max:50',
+        //     'nama_ortu' => 'required|string|max:50',
+        //     'nomor_ortu' => 'max:15',
+        //     'nomor_nik' => 'string',
+        //     'nomor_kk' => 'required|max:25',
+        //     'status' => 'string|in:0,1',
+        //     'nisn' => 'sometimes|numeric|digits_between:5,15|unique:nilai,nisn,' . $request->input('id') . ',id_siswa',
+        //     'semester_1' => 'required|max:10,' . $request->input('id') . ',id_siswa',
+        //     'semester_2' => 'required|max:10,' . $request->input('id') . ',id_siswa',
+        //     'semester_3' => 'required|max:10,' . $request->input('id') . ',id_siswa',
+        //     'semester_4' => 'required|max:10,' . $request->input('id') . ',id_siswa',
+        //     'semester_5' => 'required|max:10,' . $request->input('id') . ',id_siswa',
+        // ]);
+
+        // // if($validator->fails()) {
+        // //     return redirect('siswa/' . $id . '/edit')->withInput()
+        // //     ->withErrors($validator);
+        // // }
+
+        // $siswa->update($request->all());
+
+        // $nilai = $siswa->nilai;
+        // $nilai->nisn = $request->input('nisn');
+        // $nilai->semester_1 = $request->input('semester_1');
+        // $nilai->semester_2 = $request->input('semester_2');
+        // $nilai->semester_3 = $request->input('semester_3');
+        // $nilai->Semester_4 = $request->input('semester_4');
+        // $nilai->semester_5 = $request->input('semester_5');
+        // $siswa->nilai()->save($nilai);
 
         // $telepon = $siswa->telepon;
         // $telepon->nomor_telepon = $request->input('nomor_telepon');
