@@ -134,7 +134,7 @@ class SiswaController extends Controller
         return view('siswa.edit', ['siswa' => $siswa]);
     }
 
-    public function update($id, SiswaRequest $request){
+    public function update($id, Request $request){
         // mengupdate semua data di form berdasarkan id = $id
         $siswa = Siswa::findOrFail($id);
         $input = $request->all();

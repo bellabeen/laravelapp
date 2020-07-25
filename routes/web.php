@@ -15,6 +15,8 @@ use App\Http\Controllers\SiswaController;
 
 Route::get('/', 'PagesController@homepage');
 
+// Route::get('dasboard')->name('dashboard')->uses('PagesController@index');
+Route::get('dasboard', 'PagesController@homepage');
 Route::get('about', 'PagesController@about');
 
 Route::group(['middleware' => ['web']], function(){

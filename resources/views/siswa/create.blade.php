@@ -1,17 +1,38 @@
-@extends('template')
+@extends('layouts.template')
 
-@section('main')
-    <div id="siswa">
-        <h2>Tambah Siswa</h2>
+@section('content')
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+        <div class="container-fluid">
+          <div class="row mb-2">
+            <div class="col-sm-6">
+              <h1 class="m-0 text-dark">Halaman Daftar Siswa</h1>
+            </div><!-- /.col -->
+            <div class="col-sm-6">
+              <ol class="breadcrumb float-sm-right">
+                <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
+                <li class="breadcrumb-item active">Daftar Siswa </li>
+              </ol>
+            </div><!-- /.col -->
+          </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+      </div>
 
-        {!! Form::open(['url' => 'siswa', 'files' => true]) !!}
-            @include('siswa.form', ['submitButtonText' => 'Tambah Data'])
-        {!! Form::close() !!}
-    </div>
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card">   
+                    <div class="card-body">
+                    {!! Form::open(['url' => 'siswa', 'files' => true]) !!}
+                        @include('siswa.form', ['submitButtonText' => 'Tambah Data'])
+                    {!! Form::close() !!}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 @endsection
 
-@section('footer')
-    @include('footer')
-@endsection
-</div>
 
